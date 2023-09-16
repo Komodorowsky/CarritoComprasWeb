@@ -1,0 +1,37 @@
+-- Crear la base de datos "tienda"
+CREATE DATABASE tienda;
+
+-- Usar la base de datos "tienda"
+USE tienda;
+
+-- Crear la tabla tblproductos
+CREATE TABLE tblproductos (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(255) NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL,
+    Descripcion TEXT,
+    Imagen VARCHAR(255)
+);
+
+-- Crear la tabla tblventas
+CREATE TABLE tblventas (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Clavetransaccion VARCHAR(255) NOT NULL,
+    Paypaldatos TEXT,
+    Fecha DATE NOT NULL,
+    Correo VARCHAR(255) NOT NULL,
+    Total DECIMAL(10, 2) NOT NULL,
+    Status VARCHAR(50) NOT NULL
+);
+
+-- Crear la tabla tbldetalleventa
+CREATE TABLE tbldetalleventa (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    IDventa INT NOT NULL,
+    IDproducto INT NOT NULL,
+    Preciounitario DECIMAL(10, 2) NOT NULL,
+    Cantidad INT NOT NULL,
+    Descargado BOOLEAN,
+    FOREIGN KEY (IDventa) REFERENCES tblventas(ID),
+    FOREIGN KEY (IDproducto) REFERENCES tblproductos(ID)
+);
